@@ -1,6 +1,8 @@
 console.log("script loaded");
 
-window.onload = function(){
+onload = pageLoad;
+
+function pageLoad(){
   //console.log("here");
   let button = document.getElementById("btn3");
   //console.log(button);
@@ -10,4 +12,3 @@ window.onload = function(){
 function say_hello(){
   alert("hello world!");
 }
-
