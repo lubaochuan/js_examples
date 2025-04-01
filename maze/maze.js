@@ -1,32 +1,32 @@
 let lost = false;  // is the game lost?
-let start = false; // has a game started?
+let started = false; // has a game started?
 
 window.onload = function(){
   const bounds = document.querySelectorAll(".boundary");
   for(let i=0; i<bounds.length; i++){
     bounds[i].addEventListener("mouseover", function(){
-      if(start){
+      if(started){
         red();
       }
     });
   }
 
-  document.getElementById("start").addEventListener("click", function(){
-    start = true;
+  document.getElementById("started").addEventListener("click", function(){
+    started = true;
     lost = false;
-    document.getElementById("status").innerHTML = "Game started. Good luck!";
+    document.getElementById("status").innerHTML = "Game starteded. Good luck!";
     reset();
   });
 
   document.getElementById("end").addEventListener("click", function(){
-    if(start && !lost){
+    if(started && !lost){
       document.getElementById("status").innerHTML = "You win!";
     }
-    start = false;
+    started = false;
   });
 
   document.getElementById("maze").addEventListener("mouseleave", function(){
-    if(start){
+    if(started){
       lost = true;
       red();
       document.getElementById("status").innerHTML = "You lose!";
