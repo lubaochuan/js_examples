@@ -11,7 +11,7 @@ window.onload = function(){
     });
   }
 
-  document.getElementById("started").addEventListener("click", function(){
+  document.getElementById("start").addEventListener("click", function(){
     started = true;
     lost = false;
     document.getElementById("status").innerHTML = "Game starteded. Good luck!";
