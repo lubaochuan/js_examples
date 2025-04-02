@@ -14,7 +14,7 @@ window.onload = function(){
   document.getElementById("start").addEventListener("click", function(){
     started = true;
     lost = false;
-    document.getElementById("status").innerHTML = "Game starteded. Good luck!";
+    document.getElementById("status").innerHTML = "Game started. Good luck!";
     reset();
   });
 
@@ -39,6 +39,8 @@ function red(){
   for(let i=0; i<bounds.length; i++){
       bounds[i].classList.add("youlose");
   }
+
+  lost = true;
   document.getElementById("status").innerHTML = "You lose!";
 }
 
@@ -47,5 +49,5 @@ function reset(){
   for(let bound of bounds){
       bound.classList.remove("youlose");
   }
-  document.getElementById("status").innerHTML = "You lose!";
+  //document.getElementById("status").innerHTML = "You lose!";
 }
