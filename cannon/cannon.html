@@ -104,7 +104,7 @@ function updateTargets() {
     targetObj.element.style.top = `${targetObj.y}px`;
 
     // Remove target if it goes off-screen
-    if (targetObj.y > gameContainer.offsetHeight) {
+    if (targetObj.y+20 > gameContainer.offsetHeight) {
       gameContainer.removeChild(targetObj.element);
       targets.splice(index, 1);
     }
@@ -160,6 +160,12 @@ function updateProjectiles() {
 
 // Event listener for the fire button
 fireButton.addEventListener('click', createProjectile);
+document.addEventListener('keydown', function(event) {
+  if (event.key === ' ' || event.code === 'Space') {
+    // Code to execute when the space key is pressed
+    createProjectile();
+  }
+});
 
 // Event listener for the angle slider
 angleSlider.addEventListener('input', () => {
