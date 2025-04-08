@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bouncing Ball</title>
+<style>
+  #container {
+    width: 400px;
+    height: 300px;
+    border: 1px solid black;
+    position: relative; /* Needed for absolute positioning of the ball */
+  }
+  #ball {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%; /* Makes it a circle */
+    position: absolute; /* Allows us to move it with top and left */
+    top: 10px;
+    left: 10px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="container">
+    <div id="ball"></div>
+  </div>
+
+  <script>
+const container = document.getElementById('container');
+const ball = document.getElementById('ball');
+
+console.log(`container.offsetWidth:${container.offsetWidth}`);
+console.log(`container.offsetHeight:${container.offsetHeight}`);
+
+let ballX = 10; // Initial horizontal position
+let ballY = 10; // Initial vertical position
+let speedX = 2;  // Horizontal speed (pixels per interval)
+let speedY = 1;  // Vertical speed (pixels per interval)
+const ballRadius = 10; // Half of the ball's width/height
+
+function updateBallPosition() {
+  ballX += speedX;
+  ballY += speedY;
+
+  // Collision detection with the container boundaries
+  if (ballX + 2*ballRadius > container.offsetWidth || ballX < 0) {
+    speedX = -speedX; // Reverse horizontal direction
+  }
+  if (ballY + 2*ballRadius > container.offsetHeight || ballY < 0) {
+    speedY = -speedY; // Reverse vertical direction
+  }
+
+  // Update the ball's CSS position
+  ball.style.left = ballX + 'px';
+  ball.style.top = ballY + 'px';
+  console.log(`(ballX, ballY)=(${ballX},${ballY})`);
+}
+
+// Set up the timer event
+const animationInterval = setInterval(updateBallPosition, 20); // Call updateBallPosition every 20 milliseconds
+  </script>
+
+</body>
+</html>
