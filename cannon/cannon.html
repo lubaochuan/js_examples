@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cannon Shooting</title>
+<style>
+  body { margin: 0; overflow: hidden; background-color: #f0f0f0; }
+  #game-container {
+    position: relative;
+    width: 800px;
+    height: 400px;
+    border: 1px solid black;
+    background-color: #e0e0e0;
+  }
+  #cannon {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 40px;
+    height: 30px;
+    background-color: green;
+    border-radius: 5px;
+    transform-origin: top center; /* For rotation */
+  }
+  #cannon-barrel {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: darkgreen;
+    border-radius: 3px;
+  }
+  .projectile {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  .target {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: purple;
+    border-radius: 10px;
+  }
+  #controls {
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="game-container">
+    <div id="cannon">
+      <div id="cannon-barrel"></div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button id="fire-button">Fire!</button>
+    <label for="angle-slider">Angle:</label>
+    <input type="range" id="angle-slider" min="0" max="90" value="0">
+    <span id="angle-value">0</span> degrees
+  </div>
+
+  <script>
+const gameContainer = document.getElementById('game-container');
+const cannon = document.getElementById('cannon');
+const fireButton = document.getElementById('fire-button');
+const angleSlider = document.getElementById('angle-slider');
+const angleValueDisplay = document.getElementById('angle-value');
+
+let cannonAngle = 0;
+const cannonBaseX = 20;
+const cannonBaseY = gameContainer.offsetHeight - 10;
+
+let targets = [];
+const targetSpawnInterval = 1500; // Spawn a new target every 1.5 seconds
+const targetSpeed = 1;
+
+let projectiles = [];
+const projectileSpeed = 10;
+const gravity = 0.1;
+
+// Function to create a new target
+function createTarget() {
+  const target = document.createElement('div');
+  target.classList.add('target');
+  const randomX = Math.random() * (gameContainer.offsetWidth - 20);
+  target.style.left = `${randomX}px`;
+  target.style.top = `-20px`; // Start above the screen
+  gameContainer.appendChild(target);
+  targets.push({ element: target, x: randomX, y: -20, vy: targetSpeed });
+}
+
+// Function to update the position of targets
+function updateTargets() {
+  targets.forEach((targetObj, index) => {
+    targetObj.y += targetObj.vy;
+    targetObj.element.style.top = `${targetObj.y}px`;
+
+    // Remove target if it goes off-screen
+    if (targetObj.y > gameContainer.offsetHeight) {
+      gameContainer.removeChild(targetObj.element);
+      targets.splice(index, 1);
+    }
+  });
+}
+
+// Function to create a new projectile
+function createProjectile() {
+  const projectile = document.createElement('div');
+  projectile.classList.add('projectile');
+  projectile.style.left = `${cannonBaseX + 20}px`; // Start at the cannon barrel
+  projectile.style.top = `${cannonBaseY - 20}px`;
+  gameContainer.appendChild(projectile);
+
+  const angleRad = cannonAngle * Math.PI / 180;
+  const vx = projectileSpeed * Math.cos(angleRad);
+  const vy = -projectileSpeed * Math.sin(angleRad); // Negative because up is negative in screen coordinates
+
+  projectiles.push({ element: projectile, x: cannonBaseX + 20, y: cannonBaseY - 20, vx: vx, vy: vy });
+}
+
+// Function to update the position of projectiles
+function updateProjectiles() {
+  projectiles.forEach((projectileObj, index) => {
+    projectileObj.x += projectileObj.vx;
+    projectileObj.y += projectileObj.vy;
+    projectileObj.vy += gravity; // Apply gravity
+
+    projectileObj.element.style.left = `${projectileObj.x}px`;
+    projectileObj.element.style.top = `${projectileObj.y}px`;
+
+    // Collision detection with targets
+    targets.forEach((targetObj, targetIndex) => {
+      const dx = projectileObj.x - targetObj.x;
+      const dy = projectileObj.y - targetObj.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 15) { // Collision (projectile radius + target radius)
+        gameContainer.removeChild(projectileObj.element);
+        projectiles.splice(index, 1);
+        gameContainer.removeChild(targetObj.element);
+        targets.splice(targetIndex, 1);
+      }
+    });
+
+    // Remove projectile if it goes off-screen
+    if (projectileObj.y > gameContainer.offsetHeight || projectileObj.x < 0 || projectileObj.x > gameContainer.offsetWidth) {
+      gameContainer.removeChild(projectileObj.element);
+      projectiles.splice(index, 1);
+    }
+  });
+}
+
+// Event listener for the fire button
+fireButton.addEventListener('click', createProjectile);
+
+// Event listener for the angle slider
+angleSlider.addEventListener('input', () => {
+  cannonAngle = parseInt(angleSlider.value);
+  cannon.style.transform = `rotate(${-cannonAngle}deg)`;
+  angleValueDisplay.textContent = cannonAngle;
+});
+
+// Game loop
+setInterval(() => {
+  updateTargets();
+  updateProjectiles();
+}, 20);
+
+// Spawn initial targets
+setInterval(createTarget, targetSpawnInterval);
+  </script>
+
+</body>
+</html>
