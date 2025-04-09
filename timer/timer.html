@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<span id="display">0</span>
+<button id="start">start</button>
+<button id="stop">stop</button>
+<script>
+let seconds = 0;
+const display = document.getElementById("display");
+const start = document.getElementById("start");
+const stop = document.getElementById("stop");
+let timer = null;
+start.addEventListener("click", function(){
+  if(timer == null){
+    timer = setInterval(function(){
+      seconds++;
+      display.textContent = seconds;
+      console.log("hello");
+    }, 1000);
+  }
+});
+
+stop.addEventListener("click", function(){
+  clearInterval(timer);
+  timer=null;
+});
+</script>
+</body>
+</html>
