@@ -1,6 +1,6 @@
 console.log("script loaded");
 
-onload = pageLoad;
+document.addEventListener("DOMContentLoaded", pageLoad);
 
 function pageLoad(){
   //console.log("here");
