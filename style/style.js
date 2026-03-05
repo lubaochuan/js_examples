@@ -1,6 +1,7 @@
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function(){
   document.getElementById("clickme").onclick = changeColor;
-};
+});
+
 function changeColor() {
   //var clickMe = document.getElementById("clickme");
   //clickMe.style.color = "red";
