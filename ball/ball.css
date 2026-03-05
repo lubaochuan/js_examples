@@ -1,0 +1,12 @@
+#ball {
+  width: 100px;         /* Set equal width */
+  height: 100px;        /* Set equal height */
+  background-color: blue; /* Add a background color to make it visible */
+  border-radius: 50%;   /* Transform the square into a circle */
+  position: absolute;
+  left: 0;
+}
+
+body {
+  position: relative;
+}
