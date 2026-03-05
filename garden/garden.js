@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function() {
+  // Attach event listener to button
+  document.getElementById("plant").addEventListener("click", grow);
+});
+
 function grow() {
   const rows = parseInt(document.getElementById("rows").value);
   const columns = parseInt(document.getElementById("columns").value);
@@ -28,6 +33,3 @@ function grow() {
     garden.appendChild(rowDiv);
   }
 }
-
-// Attach event listener to button
-document.getElementById("plant").addEventListener("click", grow);
