@@ -46,7 +46,7 @@ element.classList.add('new-class');
 ```
 
 The following are more detailed suggested steps for solving this exercise:
-* Write a "window onload" handler that sets up any necessary event handlers on
+* Write a "DOMContentLoaded" handler that sets up any necessary event handlers on
   the page.
 * Handle the appropriate event on the appropriate wall by making it turn red.
 
@@ -70,7 +70,7 @@ has hit any walls or not, and examine this information when the user touches
 the end square.
 
 ## Task 4: Restartable maze
-One annoying thing you may be noticing as you test the maze so far is that it
+One **annoying** thing you may be noticing as you test the maze so far is that it
 can't easily be reset to try again. So our next task will be to make it so that
 when the user clicks the mouse on the Start square (a `div` with an `id` of `start`),
 the maze state will reset. That is, if the maze boundary walls are red, they
