@@ -1,4 +1,4 @@
-input:focus{
+#name:focus{
   outline-style: none;
   box-shadow: none;
 }

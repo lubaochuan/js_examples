@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", setup);
 
 function setup() {
-  let inputs = document.querySelectorAll("input");
+  let name = document.getElementById("name");
 
-  for (let i = 0; i < inputs.length; i++) {
-    let input = inputs[i];
-    input.style.border = "2px solid red";
+  name.style.border = "2px solid red";
 
-    input.addEventListener("focus", function(event) {
-      //event.preventDefault();
-      console.log("Input focused");
-      this.style.border = "2px solid green";
-    });
+  name.addEventListener("focus", function(event) {
+    //event.preventDefault();
+    console.log("Input focused");
+    this.style.border = "2px solid green";
+  });
 
-    input.addEventListener("blur", function() {
-      console.log("Input blurred");
-      this.style.border = "2px solid purple";
-    });
-  }
+  name.addEventListener("blur", function() {
+    console.log("Input blurred");
+    this.style.border = "2px solid purple";
+  });
+
+  let answer = document.getElementById("answer");
+  answer.style.border = "2px solid red";
 }
